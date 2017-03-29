@@ -1,13 +1,16 @@
 package main
 
-import "sync"
+import (
+    "sync"
+    "sync/atomic"
+)
 
 var counter int64
 var wait sync.WaitGroup
 
 func task() {
 	for count := 0; count < 2; count++ {
-		counter++
+        atomic.AddInt64(&counter, 1)
 	}
 
 	wait.Done()
